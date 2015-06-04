@@ -9,9 +9,9 @@ rClient.on("error", function (err) {
 
 var cities = JSON.parse(fs.readFileSync('places.json'));
 cities.map(function(city) {
-  rClient.sadd("places-" + city.pid, JSON.stringify(city), function() {});
+  rClient.hset(city.pid , city.id, JSON.stringify(city), function() {});
 });
 
-rClient.smembers('places-0', function(err, reply) {
+rClient.hvals('0', function(err, reply) {
   console.log(reply);
 });
